@@ -59,4 +59,5 @@ public class ContratRestController {
     List<Contrat> contratBetween2dates(@PathVariable("start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,@PathVariable("end") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date end){
         return iContratService.contratBetween2dates(start,end);
     }
+
 }

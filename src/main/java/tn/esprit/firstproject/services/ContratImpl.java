@@ -2,6 +2,7 @@ package tn.esprit.firstproject.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.firstproject.entities.Contrat;
 import tn.esprit.firstproject.entities.Etudiant;
@@ -86,4 +87,31 @@ public class ContratImpl implements  IContratService {
     public List<Contrat> contratBetween2dates(Date startDate, Date endDate) {
         return  contratRepository.contratBetween2dates(startDate,endDate);
     }
+    @Scheduled(cron="*/60 * * * * *")
+   public String retrieveAndUpdateStatusContrat()
+    {
+        List<Contrat> contrats = (List<Contrat>) contratRepository.findAll();
+        List<Contrat> contratRenouv = null ;
+        String result="\n============================================================================= \n" ;
+        result=result + "Les contrats dont la date fin est prévue dans les prochaines 15 jours sont : \n" ;
+        for (Contrat c : contrats) {
+            int period = contratRepository.DateDiffContrat(c.getIdContrat()) ; // calcul difference jours
+            if (period<=15) {
+                result = result+"Contrat id : "+c.getIdContrat()+"\n" ;
+                result = result+"Jours Restant : "+ period +"\n" ;
+                result = result+"Date Fin : "+c.getDateFinContrat()+"\n" ;
+                result = result+"Specialite : "+c.getSpecialite()+"\n" ;
+                result = result+"Etudiant Concerné : "+c.getEtudiant().getNom()+"\n" ;
+            }
+            if (period<=0) {
+                c.setArchive(true);
+                contratRepository.save(c) ;
+            }
+        }
+
+        System.out.println(result);
+        return result;
+    }
+
+
 }
