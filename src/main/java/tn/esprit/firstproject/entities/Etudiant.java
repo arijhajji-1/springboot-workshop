@@ -19,8 +19,8 @@ public class Etudiant implements Serializable {
     private String prenom ;
     private String nom ;
 
-/*@Enumerated(EnumType.STRING)
-private Option option ;*/
+@Enumerated(EnumType.STRING)
+private Option op;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
