@@ -32,10 +32,7 @@ private final IContratRepository contratRepository;
         log.debug("test");
         return (List<Etudiant>) etudiantRepository.findAll();
     }
-@Scheduled(cron="*/60 * * * * *")
-void test() {
-        log.info("hello");
-}
+
     @Override
     public Etudiant addEtudiant(Etudiant etudiant) {
 

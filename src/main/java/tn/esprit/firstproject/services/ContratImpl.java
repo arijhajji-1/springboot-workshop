@@ -87,8 +87,8 @@ public class ContratImpl implements  IContratService {
     public List<Contrat> contratBetween2dates(Date startDate, Date endDate) {
         return  contratRepository.contratBetween2dates(startDate,endDate);
     }
-    @Scheduled(cron="*/60 * * * * *")
-   public String retrieveAndUpdateStatusContrat()
+
+  /* public String retrieveAndUpdateStatusContrat()
     {
         List<Contrat> contrats = (List<Contrat>) contratRepository.findAll();
         List<Contrat> contratRenouv = null ;
@@ -111,7 +111,7 @@ public class ContratImpl implements  IContratService {
 
         System.out.println(result);
         return result;
-    }
+    }*/
 
 
 }

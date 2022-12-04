@@ -1,17 +1,24 @@
 package tn.esprit.firstproject.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.firstproject.entities.Contrat;
 import tn.esprit.firstproject.entities.Etudiant;
 import tn.esprit.firstproject.services.IContratService;
 import tn.esprit.firstproject.services.IEtudiantService;
+import tn.esprit.firstproject.services.PDFGeneratorService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RequestMapping("/contrat")
 public class ContratRestController {
@@ -59,5 +66,7 @@ public class ContratRestController {
     List<Contrat> contratBetween2dates(@PathVariable("start") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date start,@PathVariable("end") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date end){
         return iContratService.contratBetween2dates(start,end);
     }
+
+
 
 }
